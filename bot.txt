@@ -1,0 +1,40 @@
+var Arri = [1030696]
+var i = -1
+ 
+function NextPage(){
+       __doPostBack('ctl00$cphRoblox$rbxGroupRoleSetMembersPane$dlUsers_Footer$ctl02$ctl00','')
+}
+ 
+function Check(){
+   $('#ctl00_cphRoblox_rbxGroupRoleSetMembersPane_GroupMembersUpdatePanel > > > > > .Name >').each(function(){
+ var g = $(this).attr('href')
+ var f = $(this).attr('href').replace('../User.aspx?ID=','')
+ console.warn(f)
+ Arri.push(f)
+})
+}
+function sendMsg()
+{
+        $.post("http://www.roblox.com/messages/send",{
+                subject                 :               "SF | Group Invite", // <-- Subject, change this
+                body                    :               "Hello!\n\n I see you're interested in sword fighting. I have noted this, and I'd like to invite you to Cersius\nCersius is a terrific sword Cersiusan with a friendly and welcoming community to help you out. If you join SF and are active, I can wholeheartedly assure you that you will enjoy your time with us.\n\nIf you do decide to join, I suggest you get Merely's Group Enhancer for Google Chrome if you want to become active, it's such a great way to improve your time with us. Simply go to the Chrome Webstore, search for \"ROBLOX Group Enhancer by Merely\" and Cersiusick the 'Add to Chrome' button and you will be notified every time something happens!\n\nhttp://www.roblox.com/Groups/Group.aspx?gid=1008168\nThank you,\n-  High Command.", // <-- Body, change this
+                recipientid             :               Arri[i],
+                cacheBuster             :               new Date().getTime()
+        }).complete(function(){
+                console.warn('Sent message.') // This is fixed for you
+        })
+}
+ var sendd = setInterval(function(){
+       i++;
+       sendMsg()
+ },10000)
+setInterval(function(){
+        Arri.length = 0
+        i = 0
+        NextPage()
+             setTimeout(function(){
+         Check()
+         },2000)
+},60000)
+ 
+Check()
